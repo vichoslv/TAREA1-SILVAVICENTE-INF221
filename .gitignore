@@ -1,0 +1,9 @@
+# Ignorar todos los archivos .txt en array_input, excepto los especificados
+code/sorting/data/array_input/*.txt
+!code/sorting/data/array_input/10_aleatorio_D1_a.txt
+!code/sorting/data/array_input/10_aleatorio_D7_a.txt
+
+# Ignorar todos los archivos .txt en matrix_input, excepto los especificados
+code/matrix_multiplication/data/matrix_input/*.txt
+!code/matrix_multiplication/data/matrix_input/16_densa_D0_a_1.txt
+!code/matrix_multiplication/data/matrix_input/16_densa_D0_a_2.txt
