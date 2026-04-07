@@ -1,15 +1,91 @@
-\begin{mdframed}
-    \textbf{La extensión máxima para esta sección es de 4 páginas.} Si utiliza menos páginas y explica bien sus resultados, es preferible.
-\end{mdframed}
+\subsubsection{Multiplicación de matrices}
 
-Presente sus resultados mediante \textbf{tablas y gráficos}. Cada tabla o gráfico debe estar referenciado en el texto, con una breve descripción de lo que se observa y por qué es relevante.
+En la Figura se compara el tiempo de ejecución entre los algoritmos naive y Strassen para multiplicar matrices cuadradas hasta $N=256$. A medida que las matrices crecen, ambos aumentan su tiempo de acuerdo con sus complejidades teóricas. Aunque el algoritmo naive tiene una complejidad de $O(n^3)$, resulta más rápido en estas instancias evaluadas. Por su parte, Strassen reduce la complejidad a $O(n^{2.81})$, pero añade un costo extra debido a sus operaciones recursivas y al uso de memoria intermedia. Por lo tanto, para matrices pequeñas y medianas, la estrategia tradicional es más eficiente en la práctica.
 
-\textbf{Es necesario automatizar la generación de las gráficas}, ya que es imprescindible que se pueda confirmar que las visualizaciones presentadas son producto de los datos generados por sus algoritmos.
+Cabe destacar que estos datos se obtuvieron de forma automática. Los archivos \texttt{.csv} están disponibles en el repositorio del proyecto para que los resultados puedan ser verificados o reproducidos fácilmente.
 
-Escoja las gráficas más representativas y que muestren de manera clara los resultados obtenidos. Esta elección es parte de lo que se evaluará en la sección de presentación de resultados.
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../code/matrix_multiplication/data/plots/t_vs_n_by_algo.png}
+    \end{minipage}
+    \caption{Gráfica de Tiempo vs N entre algoritmos.}
+\end{figure}
 
 
+\subsubsection{Efecto del tipo de matriz en el tiempo de ejecución}
 
-\begin{mdframed}
-    Recuerde que es imprescindible que se pueda replicar la generación de las gráficas, por lo que usted debe referir a las figuras generadas en `code/matrix\_multiplication/data/plots/` y `code/sorting/data/plots/`.
-\end{mdframed}
+Las Figuras muestran cómo varía el tiempo según el tipo de matriz (densa, diagonal o dispersa) y sus dominios D0 y D10.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../code/matrix_multiplication/data/plots/t_vs_n_by_input_naive.png}
+    \end{minipage}%
+    \hspace{0.05\textwidth}
+    \begin{minipage}[t]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../code/matrix_multiplication/data/plots/t_vs_n_by_input_strassen.png}
+     \end{minipage}
+    \caption{Tiempo vs N por input de cada algoritmo.}
+\end{figure}
+
+El algoritmo naive tarda menos con matrices dispersas y luego con las diagonales, ya que evita realizar cálculos innecesarios con los ceros, reduciendo así la cantidad efectiva de multiplicaciones y sumas. En contraste, Strassen mantiene tiempos muy similares sin importar el tipo de matriz. Esto ocurre porque sus divisiones recursivas ejecutan secuencias fijas de operaciones que no logran aprovechar la presencia de ceros. En síntesis, naive saca ventaja de estructuras simples o vacías, mientras que Strassen es insensible a este factor.
+
+
+\subsubsection{Memoria estimada en algoritmos de matrices}
+
+La Figura ilustra la memoria estimada para instancias de hasta $256 \times 256$. Se observa que Strassen consume constantemente más memoria que el método naive, lo cual coincide con las estimaciones teóricas:
+\[
+M_{\text{naive}} \approx 3 \cdot n^2 \cdot \texttt{sizeof(int)}, \quad 
+M_{\text{strassen}} \approx 8 \cdot n^2 \cdot \texttt{sizeof(int)}.
+\]
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{../code/matrix_multiplication/data/plots/mem_vs_n_by_algo.png}
+    \end{minipage}
+    \caption{Gráfica de Memoria estimada en función de N para los 2 algoritmos.}
+\end{figure}
+
+Esta diferencia radica en que naive opera directamente sobre las matrices originales y la resultante, mientras que Strassen exige generar múltiples submatrices en cada paso recursivo. Como conclusión, para tamaños moderados, Strassen resulta ser más lento y más demandante en memoria, limitando su atractivo frente a la versión tradicional.
+
+
+\subsubsection{Algoritmos de ordenamiento de arreglos según el input}
+
+En las 5 figuras se presentan los tiempos de ejecución de los algoritmos (insertion sort, merge sort, panda sort, quick sort y sort) para distintos tamaños $n$ y tipos de entrada (ascendente, descendente y aleatorio). 
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{../code/sorting/data/plots/time_vs_n_mergesort.png}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{../code/sorting/data/plots/time_vs_n_quicksort.png}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.32\textwidth}
+        \includegraphics[width=\textwidth]{../code/sorting/data/plots/time_vs_n_stdsort.png}
+    \end{minipage}
+    \caption{Tiempo vs N por input de cada algoritmo.}
+\end{figure}
+
+Insertion sort destaca con arreglos ascendentes al requerir desplazamientos mínimos, pero sufre significativamente con los descendentes. Merge sort, fiel a su complejidad teórica de $O(n \log n)$, rinde igual en cualquier caso, mostrando solo un levísimo aumento de tiempo en los escenarios aleatorios. 
+
+Panda sort presenta un mal desempeño general propio de una complejidad cercana a $O(n^2)$, ya que no logra sacar provecho de los datos preordenados. Quick sort, al utilizar un pivote central, es más lento en arreglos aleatorios debido a que los arreglos ya ordenados le generan particiones mucho más balanceadas. En resumen, los algoritmos cuadráticos dependen fuertemente del orden original de los datos, mientras que los más eficientes mantienen un rendimiento estable.
+
+
+\subsubsection{Memoria estimada en algoritmos de ordenamiento}
+
+En la Figura se expone el uso máximo de memoria extra en función del tamaño del arreglo $n$ para los algoritmos evaluados.
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{../code/sorting/data/plots/memory_comparison_vs_n.png}
+    \end{minipage}
+    \caption{Comparación de uso de memoria vs n entre algoritmos de ordenamiento.}
+\end{figure}
+
+Se evidencia que quicksort mantiene un consumo de memoria extra prácticamente nulo sin importar el valor de $n$, lo que confirma experimentalmente su naturaleza de ordenamiento in-place. Por el contrario, tanto mergesort como stdsort muestran un crecimiento lineal que se superpone perfectamente, alcanzando aproximadamente los 0.38 MB para arreglos de $10^5$ elementos. 
+
+En el caso de mergesort, este aumento concuerda con la teoría, ya que el algoritmo requiere instanciar arreglos temporales proporcionales a $n$ para poder fusionar las mitades. Por su parte, el consumo observado en la línea de stdsort se explica estrictamente por la implementación evaluada en el código, donde se genera una copia por valor del vector original, elevando así su huella de memoria al mismo nivel que mergesort.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.3)  3 APR 2026 17:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.3)  7 APR 2026 01:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1520,21 +1520,77 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 (Font)              scaled to size 8.27998pt on input line 43.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
 (Font)              scaled to size 6.43999pt on input line 43.
- (./sections/experiment_intro.tex) (./sections/experiment_results.tex
+ (./sections/experiment_intro.tex
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 16.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)) (./sections/experiment_results.tex
 
-Package mdframed Warning: You got a bad break
-(mdframed)                because the last box will be empty
-(mdframed)                you have to change it manually
-(mdframed)                by changing the text, the space
-(mdframed)                or something else on input line 15.
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 1.
 
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 10.07397pt on input line 3.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 7.63599pt on input line 3.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 5.51999pt on input line 3.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 10.07397pt on input line 3.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 7.63599pt on input line 3.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 5.51999pt on input line 3.
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
-]) (./sections/conclusions.tex)
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
+<../code/matrix_multiplication/data/plots/t_vs_n_by_algo.png, id=52, 462.528pt x 346.896pt>
+File: ../code/matrix_multiplication/data/plots/t_vs_n_by_algo.png Graphic file (type png)
+<use ../code/matrix_multiplication/data/plots/t_vs_n_by_algo.png>
+Package pdftex.def Info: ../code/matrix_multiplication/data/plots/t_vs_n_by_algo.png  used on input line 10.
+(pdftex.def)             Requested size: 188.8096pt x 141.60896pt.
+<../code/matrix_multiplication/data/plots/t_vs_n_by_input_naive.png, id=54, 462.528pt x 346.896pt>
+File: ../code/matrix_multiplication/data/plots/t_vs_n_by_input_naive.png Graphic file (type png)
+<use ../code/matrix_multiplication/data/plots/t_vs_n_by_input_naive.png>
+Package pdftex.def Info: ../code/matrix_multiplication/data/plots/t_vs_n_by_input_naive.png  used on input line 23.
+(pdftex.def)             Requested size: 188.8096pt x 141.60896pt.
+<../code/matrix_multiplication/data/plots/t_vs_n_by_input_strassen.png, id=55, 462.528pt x 346.896pt>
+File: ../code/matrix_multiplication/data/plots/t_vs_n_by_input_strassen.png Graphic file (type png)
+<use ../code/matrix_multiplication/data/plots/t_vs_n_by_input_strassen.png>
+Package pdftex.def Info: ../code/matrix_multiplication/data/plots/t_vs_n_by_input_strassen.png  used on input line 27.
+(pdftex.def)             Requested size: 188.8096pt x 141.60896pt.
+ [2 <../code/matrix_multiplication/data/plots/t_vs_n_by_algo.png> <../code/matrix_multiplication/data/plots/t_vs_n_by_input_naive.png> <../code/matrix_multiplication/data/plots/t_vs_n_by_input_strassen.png>]
+<../code/matrix_multiplication/data/plots/mem_vs_n_by_algo.png, id=66, 462.528pt x 346.896pt>
+File: ../code/matrix_multiplication/data/plots/mem_vs_n_by_algo.png Graphic file (type png)
+<use ../code/matrix_multiplication/data/plots/mem_vs_n_by_algo.png>
+Package pdftex.def Info: ../code/matrix_multiplication/data/plots/mem_vs_n_by_algo.png  used on input line 46.
+(pdftex.def)             Requested size: 188.8096pt x 141.60896pt.
+<../code/sorting/data/plots/time_vs_n_mergesort.png, id=67, 417.81094pt x 329.28018pt>
+File: ../code/sorting/data/plots/time_vs_n_mergesort.png Graphic file (type png)
+<use ../code/sorting/data/plots/time_vs_n_mergesort.png>
+Package pdftex.def Info: ../code/sorting/data/plots/time_vs_n_mergesort.png  used on input line 61.
+(pdftex.def)             Requested size: 151.05345pt x 119.04823pt.
+<../code/sorting/data/plots/time_vs_n_quicksort.png, id=68, 417.81094pt x 329.28018pt>
+File: ../code/sorting/data/plots/time_vs_n_quicksort.png Graphic file (type png)
+<use ../code/sorting/data/plots/time_vs_n_quicksort.png>
+Package pdftex.def Info: ../code/sorting/data/plots/time_vs_n_quicksort.png  used on input line 64.
+(pdftex.def)             Requested size: 151.05345pt x 119.04823pt.
+<../code/sorting/data/plots/time_vs_n_stdsort.png, id=69, 417.81094pt x 329.28018pt>
+File: ../code/sorting/data/plots/time_vs_n_stdsort.png Graphic file (type png)
+<use ../code/sorting/data/plots/time_vs_n_stdsort.png>
+Package pdftex.def Info: ../code/sorting/data/plots/time_vs_n_stdsort.png  used on input line 67.
+(pdftex.def)             Requested size: 151.05345pt x 119.04823pt.
+ [3 <../code/matrix_multiplication/data/plots/mem_vs_n_by_algo.png>]
+<../code/sorting/data/plots/memory_comparison_vs_n.png, id=76, 416.45587pt x 330.18356pt>
+File: ../code/sorting/data/plots/memory_comparison_vs_n.png Graphic file (type png)
+<use ../code/sorting/data/plots/memory_comparison_vs_n.png>
+Package pdftex.def Info: ../code/sorting/data/plots/memory_comparison_vs_n.png  used on input line 84.
+(pdftex.def)             Requested size: 212.41261pt x 168.4065pt.
+) [4 <../code/sorting/data/plots/time_vs_n_mergesort.png> <../code/sorting/data/plots/time_vs_n_quicksort.png> <../code/sorting/data/plots/time_vs_n_stdsort.png> <../code/sorting/data/plots/memory_comparison_vs_n.png>] (./sections/conclusions.tex)
 
 LaTeX Warning: Empty bibliography on input line 55.
 
-[2] (./report.aux
+[5] (./report.aux
 LaTeX Info: Redefining \sptext on input line 14.
 LaTeX Info: Redefining \. on input line 14.
 LaTeX Info: Redefining \% on input line 14.
@@ -1545,24 +1601,24 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 9F014D8548A379B0748383F91CE3555E;406.
+(rerunfilecheck)             Checksum: 35FDD2AA713D2D2719F5A32C3F8748BE;2139.
 Package logreq Info: Writing requests to 'report.run.xml'.
 \openout1 = `report.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 54753 strings out of 474222
- 1241585 string characters out of 5748734
- 2191644 words of memory out of 5000000
- 76200 multiletter control sequences out of 15000+600000
- 622254 words of font info for 87 fonts, out of 8000000 for 9000
+ 54916 strings out of 474222
+ 1247118 string characters out of 5748734
+ 2187644 words of memory out of 5000000
+ 76330 multiletter control sequences out of 15000+600000
+ 649605 words of font info for 129 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  107i,11n,110p,7234b,2132s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb>
-Output written on report.pdf (2 pages, 54985 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on report.pdf (5 pages, 657241 bytes).
 PDF statistics:
- 49 PDF objects out of 1000 (max. 8388607)
- 38 compressed objects within 1 object stream
- 6 named destinations out of 1000 (max. 500000)
- 37 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 122 PDF objects out of 1000 (max. 8388607)
+ 88 compressed objects within 1 object stream
+ 20 named destinations out of 1000 (max. 500000)
+ 125 words of extra memory for PDF output out of 10000 (max. 10000000)
 
