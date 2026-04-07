@@ -2,6 +2,11 @@
 #include <filesystem>
 #include <chrono>
 #include <functional>
+#include <cstdlib>
+#include <new>
+
+long long memoria_actual = 0;
+long long memoria_pico = 0;
 
 #if defined(__unix__) || defined(__APPLE__)
   #include <sys/resource.h>
@@ -23,52 +28,37 @@ static void run_mergesort(vector<int>& v){ if(!v.empty()) mergeSort(v, 0, (int)v
 static void run_quicksort(vector<int>& v){ if(!v.empty()) quickSort(v, 0, (int)v.size()-1); }
 static void run_stdsort  (vector<int>& v){ auto out = sortArray(v); v.swap(out); }
 
-// ===== RSS helpers =====
-#if defined(__linux__)
-static long long readProcStatusKB(const char* key){
-    std::ifstream in("/proc/self/status");
-    if(!in) return 0;
-    std::string k; long long val; std::string unit;
-    while (in >> k) {
-        if (k.back() == ':') k.pop_back();
-        if (k == key) {
-            if (in >> val >> unit) return val; // kB
-        } else {
-            std::string rest; std::getline(in, rest);
-        }
-    }
-    return 0;
-}
-#endif
-
-static long long getPeakRssBytes(){
-#if defined(__linux__)
-    long long kb = readProcStatusKB("VmHWM");        // pico de RSS
-    if (kb > 0) return kb * 1024LL;
-#endif
-#if defined(__unix__) || defined(__APPLE__)
-    struct rusage u{};
-    if (getrusage(RUSAGE_SELF, &u) == 0) {
-    #if defined(__APPLE__) && defined(__MACH__)
-        return (long long)u.ru_maxrss;        // bytes (macOS)
-    #else
-        return (long long)u.ru_maxrss * 1024; // kB -> bytes (Linux/BSD)
-    #endif
-    }
-#endif
-    return 0;
+// Versiones new (con std::size_t)
+void* operator new(std::size_t size) {
+    memoria_actual += size;
+    if (memoria_actual > memoria_pico) memoria_pico = memoria_actual;
+    return std::malloc(size);
 }
 
-static long long getCurrentRssBytes(){
-#if defined(__linux__)
-    long long kb = readProcStatusKB("VmRSS");
-    if (kb > 0) return kb * 1024LL;
-#endif
-#if defined(__unix__) || defined(__APPLE__)
-    return getPeakRssBytes(); // aproximación portable
-#else
-    return 0;
-#endif
+void* operator new[](std::size_t size) {
+    memoria_actual += size;
+    if (memoria_actual > memoria_pico) memoria_pico = memoria_actual;
+    return std::malloc(size);
+}
+
+// Versiones delete SIN tamaño
+void operator delete(void* p) noexcept {
+    std::free(p);
+}
+
+void operator delete[](void* p) noexcept {
+    std::free(p);
+}
+
+// Versiones delete CON tamaño (Sized deallocation - C++14 en adelante)
+void operator delete(void* p, std::size_t size) noexcept {
+    memoria_actual -= size;
+    std::free(p);
+}
+
+void operator delete[](void* p, std::size_t size) noexcept {
+    memoria_actual -= size;
+    std::free(p);
 }
 
 // ===== IO =====
@@ -126,17 +116,24 @@ static bool process_one(const string& algo_name, SortFn run_func, const string& 
     const size_t MAX_N_GLOBAL = 10'000'000;
     if (arr.size() >= MAX_N_GLOBAL) return true;
 
+    // Hacemos la copia del arreglo ANTES de tomar la lectura base
     auto arr_copy = arr;
 
+    // tomamos la lectura de memoria base y reiniciamos el pico
+    long long memoria_base = memoria_actual;
+    memoria_pico = memoria_actual;
+
+    // medimos tiempo y ejecutamos
     auto t0 = chrono::steady_clock::now();
     run_func(arr_copy);
     auto t1 = chrono::steady_clock::now();
     double ms = chrono::duration<double, std::milli>(t1 - t0).count();
 
+    // escribimos el archivo de salida
     writeArray(deriveOutputPath(path, algo_name), arr_copy);
 
-    long long mem_bytes = getPeakRssBytes();
-    if (mem_bytes <= 0) mem_bytes = getCurrentRssBytes();
+    // calculamos la memoria extra exacta usada por el algoritmo
+    long long mem_bytes = memoria_pico - memoria_base;
 
     CreacionMeasurements(algo_name, fs::path(path).filename().string(), arr_copy.size(), ms, mem_bytes);
     return true;
@@ -192,18 +189,26 @@ int main(int argc, char** argv){
             if (!readArray(path, arr)){ ++fail; continue; }
             if (arr.size() >= MAX_N_GLOBAL){ ++skips; continue; }
 
+            // Hacemos la copia del arreglo ANTES de tomar la lectura base
             auto arr_copy = arr;
 
+            // 1. Tomamos la lectura de memoria base y reiniciamos el pico
+            long long memoria_base = memoria_actual;
+            memoria_pico = memoria_actual;
+
+            // 2. Medimos tiempo y ejecutamos
             auto t0 = chrono::steady_clock::now();
             run_func(arr_copy);
             auto t1 = chrono::steady_clock::now();
             double ms = chrono::duration<double, std::milli>(t1 - t0).count();
 
+            // 3. Escribimos el archivo de salida
             writeArray(deriveOutputPath(path, algo_name), arr_copy);
 
-            long long mem_bytes = getPeakRssBytes();
-            if (mem_bytes <= 0) mem_bytes = getCurrentRssBytes();
+            // 4. Calculamos la memoria extra exacta usada por el algoritmo
+            long long mem_bytes = memoria_pico - memoria_base;
 
+            // 5. Guardamos en el CSV
             CreacionMeasurements(algo_name, fs::path(path).filename().string(), arr_copy.size(), ms, mem_bytes);
             ++ok;
         }

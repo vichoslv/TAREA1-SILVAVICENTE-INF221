@@ -69,7 +69,32 @@ def plot_time_per_algo(df):
         plt.close()
         print(f"[OK] {out}")
 
+def plot_memory_comparison(df):
+    # Filtramos valores válidos
+    df = df[(df["n"] > 0) & (df["mem_est_bytes"] > 0)].copy()
 
+    # Convertimos los bytes a Megabytes para que el gráfico sea más legible
+    df["mem_mb"] = df["mem_est_bytes"] / (1024 * 1024)
+
+    plt.figure()
+    
+    # Agrupamos por algoritmo para graficarlos todos en la misma figura
+    for algo, g in df.groupby("algoritmo"):
+        # Agrupamos por 'n' tomando el valor máximo de memoria usado para ese tamaño
+        sub = g.groupby("n", as_index=False)["mem_mb"].max().sort_values("n")
+        plt.plot(sub["n"], sub["mem_mb"], marker="s", linewidth=1.5, label=algo)
+
+    plt.xscale("log", base=10)
+    plt.xlabel("n (potencias de 10)")
+    plt.ylabel("Memoria máxima (MB)")
+    plt.title("Comparación de Uso de Memoria vs n")
+    plt.grid(True, which="both", linestyle="--", alpha=0.4)
+    plt.legend(title="Algoritmo")
+    
+    out = os.path.join(PLOT_DIR, "memory_comparison_vs_n.png")
+    plt.savefig(out, dpi=160, bbox_inches="tight")
+    plt.close()
+    print(f"[OK] {out}")
 
 def main():
     df = load_all()
@@ -77,7 +102,11 @@ def main():
     df.to_csv(out_all, index=False)
     print(f"[OK] {out_all}")
 
+    # Gráficos de tiempo (los que ya tenías)
     plot_time_per_algo(df)
+    
+    # Nuevo gráfico de comparación de memoria
+    plot_memory_comparison(df)
 
 if __name__ == "__main__":
     main()
