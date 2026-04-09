@@ -676,6 +676,11 @@ INPUT ./sections/conclusions.tex
 INPUT ./sections/conclusions.tex
 INPUT ./sections/conclusions.tex
 INPUT sections/conclusions.tex
+INPUT ./sections/appendix1.tex
+INPUT ./sections/appendix1.tex
+INPUT ./sections/appendix1.tex
+INPUT ./sections/appendix1.tex
+INPUT sections/appendix1.tex
 INPUT report.aux
 INPUT ./report.out
 INPUT ./report.out

@@ -66,10 +66,9 @@ def load_all_measurements(meas_dir: Path) -> pd.DataFrame:
 
 
 def derive_case_group(case_name: str) -> str:
-    # Heurística: quitar el prefijo numérico y el sufijo _1.txt/_2.txt
     name = Path(case_name).name
-    name = re.sub(r'^\d+[_-]*', '', name)          # remove leading N and sep
-    name = re.sub(r'(_[12])?\.txt$', '', name)     # strip _1.txt / _2.txt / .txt
+    name = re.sub(r'^\d+[_-]*', '', name)
+    name = re.sub(r'(_[12])?\.txt$', '', name)
     return name or case_name
 
 
@@ -88,7 +87,6 @@ def apply_business_filters(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def plot_t_vs_n_all(df: pd.DataFrame, out_dir: Path):
-    # Opcional: quedarte con N ≤ 256 para que coincida con los ticks pedidos
     df_plot = df[(df['n'] <= 256) & (df['time_ms'] > 0)].copy()
     if df_plot.empty:
         print("[WARN] No hay datos válidos (n<=256 y time_ms>0) para 't_vs_n_all'.")
@@ -138,7 +136,7 @@ def _pow10_bounds(ymin, ymax):
     return lo, hi
 
 def plot_t_vs_n_by_algo(df: pd.DataFrame, out_dir: Path):
-    # Limitar a N <= 256 y filtrar tiempos no positivos (log no admite <= 0)
+    # Limitar a N <= 256 y filtrar tiempos no positivos
     df_small = df[(df['n'] <= 256) & (df['time_ms'] > 0)].copy()
     if df_small.empty:
         print("[WARN] No hay datos válidos (n<=256 y time_ms>0) para 't_vs_n_by_algo'.")
@@ -227,7 +225,7 @@ def plot_mem_vs_n_by_algo(df: pd.DataFrame, out_dir: Path):
         print("[WARN] No hay datos válidos (n<=256) para 'mem_vs_n_by_algo'.")
         return
 
-    # Agrupar por algoritmo y N (mediana de memoria estimada)
+    # Agrupar por algoritmo y N 
     g = df_small.groupby(['algo', 'n'], as_index=False)['mem_est_bytes'].median()
 
     fig, ax = plt.subplots()
@@ -247,7 +245,7 @@ def plot_mem_vs_n_by_algo(df: pd.DataFrame, out_dir: Path):
 
     y_min = g['mem_est_bytes'].min()
     y_max = g['mem_est_bytes'].max()
-    lo, hi = _pow10_bounds(y_min, y_max)  # <-- ya tienes esta función definida
+    lo, hi = _pow10_bounds(y_min, y_max)
     ax.set_ylim(lo, hi)
 
     ax.yaxis.set_major_locator(mticker.LogLocator(base=10.0))
@@ -278,7 +276,8 @@ def main():
     ensure_dir(out_dir)
 
     df = load_all_measurements(meas_dir)
-    df = apply_business_filters(df)  # <-- limitar Strassen a N <= 256
+    #limitar Strassen a N <= 256
+    df = apply_business_filters(df)
 
     # Generar gráficos
     plot_t_vs_n_all(df, out_dir)

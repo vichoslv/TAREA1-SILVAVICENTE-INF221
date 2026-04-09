@@ -1,11 +1,11 @@
 # Fdb version 4
-["biber report"] 1775248552.09343 "report.bcf" "report.bbl" "report" 1775539638.27468 0
-  "report.bcf" 1775539638.35484 107701 8e11a3564a9755c862f81f9053911864 "pdflatex"
+["biber report"] 1775248552.09343 "report.bcf" "report.bbl" "report" 1775712945.85978 0
+  "report.bcf" 1775712945.60869 107701 8e11a3564a9755c862f81f9053911864 "pdflatex"
   (generated)
   "report.bbl"
   "report.blg"
   (rewritten before read)
-["pdflatex"] 1775539633.81536 "/mnt/c/users/vcnts/Desktop/usm/TAREA1-SILVAVICENTE-INF221/report/report.tex" "report.pdf" "report" 1775539638.27961 0
+["pdflatex"] 1775712941.54345 "/mnt/c/users/vcnts/Desktop/usm/TAREA1-SILVAVICENTE-INF221/report/report.tex" "report.pdf" "report" 1775712945.8637 0
   "../code/matrix_multiplication/data/plots/mem_vs_n_by_algo.png" 1775250279.44549 57126 7695ce035095799e647a1d93cac8dfd6 ""
   "../code/matrix_multiplication/data/plots/t_vs_n_by_algo.png" 1775250278.74805 49228 643097cc5fee516d61bb7d8465a4a32b ""
   "../code/matrix_multiplication/data/plots/t_vs_n_by_input_naive.png" 1775250278.93744 133910 f5d7914d06c9d9103e08cc5218742cbb ""
@@ -15,7 +15,7 @@
   "../code/sorting/data/plots/time_vs_n_quicksort.png" 1775532545.28607 117042 ce9eda493df1a819527857bd12b3160c ""
   "../code/sorting/data/plots/time_vs_n_stdsort.png" 1775532545.65784 109463 8ceb520093068b4cc85b8014613df67d ""
   "/etc/texmf/web2c/texmf.cnf" 1775248316.61018 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/mnt/c/users/vcnts/Desktop/usm/TAREA1-SILVAVICENTE-INF221/report/report.tex" 1775175496.65569 1062 91aa17fd16c6005eb4908cc926fc00d7 ""
+  "/mnt/c/users/vcnts/Desktop/usm/TAREA1-SILVAVICENTE-INF221/report/report.tex" 1775709521.1704 1131 5fcd32f9271631b60aeba00491279377 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ectt0800.tfm" 1136768653 1536 0b0b8ca286de6a006b681926403f35cd ""
@@ -315,16 +315,17 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1775248340.07898 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1775248408 8213513 4b0383be49d00f97ec1f7fdb5eead8f7 ""
-  "author.tex" 1775248547.73286 491 e44265cd738d295601abb01bd4114431 ""
-  "preamble.tex" 1775175496.74054 2163 4b0cc777241a9fa0f82b663d831cc656 ""
-  "report.aux" 1775539638.32904 2644 6544aef1305133e29b50b232680a2f26 "pdflatex"
+  "author.tex" 1775539695.02543 491 e44265cd738d295601abb01bd4114431 ""
+  "preamble.tex" 1775539695.46974 2163 4b0cc777241a9fa0f82b663d831cc656 ""
+  "report.aux" 1775712945.58804 2890 226c074740b721cdacdba5f137930341 "pdflatex"
   "report.bbl" 1775248553.12803 466 ee04f40f768daeed26442158e95aba61 "biber report"
-  "report.out" 1775539638.3456 2139 35fdd2aa713d2d2719f5a32c3f8748be "pdflatex"
-  "report.run.xml" 1775539638.35936 2319 85416a11bf768be6a1e5b1dccfd5e02c "pdflatex"
-  "report.tex" 1775175496.65569 1062 91aa17fd16c6005eb4908cc926fc00d7 ""
-  "sections/conclusions.tex" 1775539632.24127 760 e53d018e3440e10df8281cf17119390e ""
-  "sections/experiment_intro.tex" 1775536490.01918 969 4e171db4edb2ce0af373e008f6de8b83 ""
-  "sections/experiment_results.tex" 1775539478.52329 6367 9d33980a89e0d2856d608f680290171e ""
+  "report.out" 1775712945.60163 2413 3f6efb0c60da0ffa9a05b28315814327 "pdflatex"
+  "report.run.xml" 1775712945.61269 2319 85416a11bf768be6a1e5b1dccfd5e02c "pdflatex"
+  "report.tex" 1775709521.1704 1131 5fcd32f9271631b60aeba00491279377 ""
+  "sections/appendix1.tex" 1775712634.94114 924 1228dfaf4554fc97a03b3304d943b501 ""
+  "sections/conclusions.tex" 1775712940.52395 1365 70d9a267f878b5661b84effe768369c1 ""
+  "sections/experiment_intro.tex" 1775709687.42761 987 75cc73a72dcaac26f26a27af2a8d936f ""
+  "sections/experiment_results.tex" 1775711658.39912 6382 688135c2196dde31ccb9dac31ff3bfd4 ""
   (generated)
   "report.aux"
   "report.bcf"

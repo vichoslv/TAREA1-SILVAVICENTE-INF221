@@ -70,10 +70,9 @@ def plot_time_per_algo(df):
         print(f"[OK] {out}")
 
 def plot_memory_comparison(df):
-    # Filtramos valores válidos
     df = df[(df["n"] > 0) & (df["mem_est_bytes"] > 0)].copy()
 
-    # Convertimos los bytes a Megabytes para que el gráfico sea más legible
+    # Convertimos los bytes a Megabytes 
     df["mem_mb"] = df["mem_est_bytes"] / (1024 * 1024)
 
     plt.figure()
@@ -102,7 +101,7 @@ def main():
     df.to_csv(out_all, index=False)
     print(f"[OK] {out_all}")
 
-    # Gráficos de tiempo (los que ya tenías)
+    # Gráficos de tiempo 
     plot_time_per_algo(df)
     
     # Nuevo gráfico de comparación de memoria

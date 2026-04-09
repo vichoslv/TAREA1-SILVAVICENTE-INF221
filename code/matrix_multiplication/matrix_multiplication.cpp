@@ -16,7 +16,18 @@ vector<vector<int>> multiply_strassen(vector<vector<int>>& A, vector<vector<int>
 static const string INPUT_DIR  = "data/matrix_input";
 static const string OUTPUT_DIR = "data/matrix_output";
 static const string MEASUREMENT_DIR   = "data/measurements";
-
+/*****
+* static bool LecturaMatriz
+******
+* Lee una matriz desde un archivo de texto y la almacena en un vector de vectores de enteros. Valida que todas las filas tengan la misma cantidad de columnas.
+******
+* Input :
+* const string& path : Ruta al archivo de texto de entrada.
+* vector<vector<int>>& M : Referencia a la matriz bidimensional donde se guardarán los datos.
+******
+* Returns :
+* bool, retorna true si el archivo se leyó correctamente y la matriz no está vacía, false en caso de error o inconsistencia en las columnas.
+*****/
 static bool LecturaMatriz(const string& path, vector<vector<int>>& M){
     ifstream in(path);
     if (!in) {
@@ -52,7 +63,18 @@ static bool LecturaMatriz(const string& path, vector<vector<int>>& M){
     }
     return !M.empty();
 }
-
+/*****
+* static bool writeMatrix
+******
+* Escribe el contenido de una matriz bidimensional en un archivo de texto, separando los elementos por espacios y cada fila con un salto de línea.
+******
+* Input :
+* const string& path : Ruta del archivo de destino.
+* const vector<vector<int>>& M : Matriz bidimensional que se desea escribir.
+******
+* Returns :
+* bool, retorna true si la escritura fue exitosa, false si el flujo de salida falló.
+*****/
 static bool writeMatrix(const string& path, const vector<vector<int>>& M) {
     ofstream out(path);
     if (!out){ 
@@ -68,7 +90,21 @@ static bool writeMatrix(const string& path, const vector<vector<int>>& M) {
     }
     return true;
 }
-
+/*****
+* static void appendMeasurement
+******
+* Registra las métricas de la ejecución (timestamp, nombre del algoritmo, nombre de la matriz, dimensión, tiempo y memoria estimada) añadiendo una fila a un archivo CSV. Crea el archivo con encabezados si no existe.
+******
+* Input :
+* const string& algoritmo : Nombre del algoritmo evaluado.
+* const string& matriz_nombre : Nombre del archivo de la primera matriz.
+* int n : Dimensión de la matriz.
+* double time_ms : Tiempo de ejecución medido en milisegundos.
+* long long mem_est_bytes : Memoria estimada en bytes utilizada por el algoritmo.
+******
+* Returns :
+* void, no retorna ningún valor.
+*****/
 static void appendMeasurement(const string& algoritmo, const string& matriz_nombre,
                               int n, double time_ms, long long mem_est_bytes) {
     const string csv = MEASUREMENT_DIR + "/measurements_" + algoritmo + ".csv";
@@ -88,7 +124,18 @@ static void appendMeasurement(const string& algoritmo, const string& matriz_nomb
         << std::fixed << std::setprecision(6) << time_ms << ','  // ms con decimales
         << mem_est_bytes << '\n';
 }
-
+/*****
+* static string deriveOutputPath
+******
+* Genera la ruta completa del archivo de salida reemplazando el sufijo "_1.txt" del archivo original por una cadena que indica el algoritmo utilizado y ubicándolo en el directorio de salida.
+******
+* Input :
+* const string& in1 : Ruta original de la primera matriz de entrada.
+* const string& algoritmo : Nombre del algoritmo ejecutado.
+******
+* Returns :
+* string, retorna la ruta completa del archivo formateado para almacenar la matriz resultante.
+*****/
 static string deriveOutputPath(const string& in1, const string& algoritmo) {
     fs::path p1(in1);
     string name = p1.filename().string();
@@ -103,7 +150,18 @@ static string deriveOutputPath(const string& in1, const string& algoritmo) {
     }
     return (OUTPUT_DIR + "/" + name);
 }
-
+/*****
+* static long long EstimarMemBytes
+******
+* Calcula una estimación teórica del consumo de memoria en bytes basándose en el tipo de algoritmo ("naive" o "strassen") y la dimensión de la matriz.
+******
+* Input :
+* const string& algo : Nombre del algoritmo a evaluar.
+* int n : Dimensión (cantidad de filas/columnas) de la matriz.
+******
+* Returns :
+* long long, retorna la cantidad estimada de bytes requeridos.
+*****/
 static long long EstimarMemBytes(const string& algo, int n) {
     if (algo == "naive"){
         return 3LL * n * n * sizeof(int);
@@ -112,7 +170,19 @@ static long long EstimarMemBytes(const string& algo, int n) {
         return 8LL * n * n * sizeof(int);
     }
 }
-
+/*****
+* static bool processPair
+******
+* Coordina el flujo completo para multiplicar dos matrices: las lee desde el disco, verifica restricciones de tamaño (omite Strassen para n >= 1024), ejecuta el algoritmo correspondiente, mide el tiempo de ejecución, guarda el resultado y registra las métricas.
+******
+* Input :
+* const string& path1 : Ruta al archivo de la primera matriz.
+* const string& path2 : Ruta al archivo de la segunda matriz.
+* const string& algo : Nombre del algoritmo de multiplicación a utilizar.
+******
+* Returns :
+* bool, retorna true al finalizar el proceso exitosamente o si se omitió deliberadamente, indicando que no hubo un error crítico de ejecución.
+*****/
 static bool processPair(const string& path1, const string& path2, const string& algo) {
     vector<vector<int>> A, B;
 
@@ -153,8 +223,18 @@ static bool processPair(const string& path1, const string& path2, const string& 
     return true;
 }
 
-
-
+/*****
+* int main
+******
+* Punto de entrada principal del programa. Permite ejecutar los algoritmos de multiplicación ("naive" y "strassen") sobre un par específico de matrices pasado por argumentos, o iterar automáticamente procesando todos los pares coincidentes en el directorio de entrada.
+******
+* Input :
+* int argc : Cantidad de argumentos recibidos por la línea de comandos.
+* char** argv : Arreglo de cadenas de texto con los argumentos.
+******
+* Returns :
+* int, retorna 0 si todas las multiplicaciones finalizaron con éxito, 1 si faltan directorios o hay errores de argumentos, y 2 si falló el procesamiento de algún par.
+*****/
 int main(int argc, char** argv) {
     constexpr const char* SUF = "_1.txt";
 
